@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from watchlist.api.serializers import MovieSerializer
 from watchlist.models import Movie
 
-@api_view()
+@api_view(['GET', 'POST'])
 def movie_list(request):
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies, many=True)
