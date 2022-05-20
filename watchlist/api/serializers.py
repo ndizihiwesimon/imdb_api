@@ -2,19 +2,22 @@
 # from django.forms import ValidationError
 from rest_framework import serializers
 
-from watchlist.models import StreamPlatform, WatchList
+from watchlist.models import Review, StreamPlatform, WatchList
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
 
 
 class WatchListSerializer(serializers.ModelSerializer):
-    len_name = serializers.SerializerMethodField()
+    reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = WatchList
         fields = "__all__"
         # exclude = ["active"]
-
-    def get_len_name(self, object):
-        return len(object.title)
 
 
 class StreamSerializer(serializers.ModelSerializer):

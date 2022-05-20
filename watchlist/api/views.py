@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.decorators import api_view
-from watchlist.api.serializers import StreamSerializer, WatchListSerializer
-from watchlist.models import StreamPlatform, WatchList
+from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
+from watchlist.models import Review, StreamPlatform, WatchList
 
 
 class StreamPlatformAV(APIView):
