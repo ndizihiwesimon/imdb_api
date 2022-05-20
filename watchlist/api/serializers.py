@@ -1,34 +1,26 @@
-from wsgiref.validate import validator
-from django.forms import ValidationError
+# from wsgiref.validate import validator
+# from django.forms import ValidationError
 from rest_framework import serializers
 
-from watchlist.models import Movie
+from watchlist.models import StreamPlatform, WatchList
 
 
-class MovieSerializer(serializers.ModelSerializer):
+class StreamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StreamPlatform
+        fields = "__all__"
+
+
+class WatchListSerializer(serializers.ModelSerializer):
     len_name = serializers.SerializerMethodField()
 
     class Meta:
-        model = Movie
+        model = WatchList
         fields = "__all__"
         # exclude = ["active"]
 
     def get_len_name(self, object):
-        return len(object.name)
-
-    def validate(self, data):
-        if data['name'] == data['description']:
-            raise serializers.ValidationError(
-                "Movie name cannot be the same as description")
-        else:
-            return data
-
-    def validate_name(self, value):
-
-        if len(value) < 2:
-            raise serializers.ValidationError("Name is too short")
-        else:
-            return value
+        return len(object.title)
 
 
 # def name_length(value):
