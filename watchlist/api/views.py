@@ -12,12 +12,12 @@ class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
 
     def perform_create(self, serializer):
-        watchlist = self.kwargs.get('pk')
-        WatchList.objects.get(pk=watchlist)
-        serializer.save()
+        pk = self.kwargs.get('pk')
+        watchlist = WatchList.objects.get(pk=pk)
+        serializer.save(watchlist=watchlist)
 
 
-class ReviewList(generics.ListCreateAPIView):
+class ReviewList(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
