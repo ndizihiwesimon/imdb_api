@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from watchlist.api.views import ReviewCreate, ReviewDetails, ReviewList, StreamPlatformAV, StreamPlatformDetailsAV, StreamPlatformVS, WatchListAV, WatchDetailsAV
 
 router = DefaultRouter()
-router.register('stream', StreamPlatformVS, basename='stream')
+router.register('stream', StreamPlatformVS, basename='stream-platform')
 
 urlpatterns = [
     # path('stream/', StreamPlatformAV.as_view(), name='stream-list'),
