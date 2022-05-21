@@ -7,6 +7,16 @@ from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchL
 from watchlist.models import Review, StreamPlatform, WatchList
 
 
+class ReviewCreate(generics.CreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        watchlist = self.kwargs.get('pk')
+        WatchList.objects.get(pk=watchlist)
+        serializer.save()
+
+
 class ReviewList(generics.ListCreateAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
