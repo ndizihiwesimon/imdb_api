@@ -63,6 +63,14 @@ class StreamPlatformVS(viewsets.ViewSet):
         serializer = StreamSerializer(watchlist)
         return Response(serializer.data)
 
+    def create(self, request):
+        serializer = StreamSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
 
 class StreamPlatformAV(APIView):
     def get(self, request):
