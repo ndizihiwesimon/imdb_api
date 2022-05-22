@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.validators import ValidationError
 from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
 from watchlist.models import Review, StreamPlatform, WatchList
@@ -32,7 +32,7 @@ class ReviewCreate(generics.CreateAPIView):
 class ReviewList(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
@@ -42,7 +42,7 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 # class ReviewDetails(mixins.RetrieveModelMixin, generics.GenericAPIView):
