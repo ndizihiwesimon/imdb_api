@@ -42,6 +42,7 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # class ReviewDetails(mixins.RetrieveModelMixin, generics.GenericAPIView):
