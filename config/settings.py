@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Apps
     'watchlist',
+    'user',
 
     # Restframework
     'rest_framework',
