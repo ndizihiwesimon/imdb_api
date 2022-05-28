@@ -27,3 +27,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if user_queryset.exists():
             raise serializers.ValidationError(
                 {'error': 'User email already exists'})
+
+        account = User(
+            email=self.validated_data['email'], username=self.validated_data['username'])
