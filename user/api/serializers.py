@@ -21,3 +21,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if password != password2:
             raise serializers.ValidationError(
                 {'error': 'Password doesn\'t match'})
+
+        user_queryset = User.objects.filter(email=self.validated_data['email'])
+
+        if user_queryset.exists():
+            raise serializers.ValidationError(
+                {'error': 'User email already exists'})
