@@ -12,3 +12,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+
+    def save(self):
+
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+
+        if password != password2:
+            raise serializers.ValidationError(
+                {'error': 'Password doesn\'t match'})
