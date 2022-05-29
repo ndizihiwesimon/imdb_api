@@ -28,4 +28,4 @@ def register_view(request):
         else:
             data = serializer.errors
 
-            return Response(serializer.data)
+            return Response(data)
