@@ -1,5 +1,3 @@
-# from wsgiref.validate import validator
-# from django.forms import ValidationError
 from rest_framework import serializers
 
 from watchlist.models import Review, StreamPlatform, WatchList
