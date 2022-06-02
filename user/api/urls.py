@@ -6,4 +6,5 @@ from user.api.views import register_view
 urlpatterns = [
     path('login/', obtain_auth_token, name='login'),
     path('register/', register_view, name='register'),
+
 ]
