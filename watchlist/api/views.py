@@ -6,7 +6,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.validators import ValidationError
 
-from watchlist.api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
+from watchlist.api.permissions import IsAdminOrReadOnly, ReviewUserOrReadOnly
 from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
 from watchlist.models import Review, StreamPlatform, WatchList
 
@@ -154,6 +154,7 @@ class WatchListAV(APIView):
 
 
 class WatchDetailsAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request, pk):
         try:
