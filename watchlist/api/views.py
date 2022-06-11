@@ -11,11 +11,13 @@ from watchlist.api.permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
 from watchlist.models import Review, StreamPlatform, WatchList
 
+from watchlist.api.throttling import ReviewCreateThrottle, ReviewListThrottle
 
 class ReviewCreate(generics.CreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
+    throttle_classes = [ReviewCreateThrottle]
 
     def perform_create(self, serializer):
         pk = self.kwargs.get('pk')
