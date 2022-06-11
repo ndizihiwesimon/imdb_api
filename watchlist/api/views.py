@@ -54,6 +54,7 @@ class ReviewDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsReviewUserOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 
 # class ReviewDetails(mixins.RetrieveModelMixin, generics.GenericAPIView):
