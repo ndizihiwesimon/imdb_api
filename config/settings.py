@@ -148,5 +148,6 @@ REST_FRAMEWORK = {
         'user': '10/day',
         'review-create': '5/day',
         'review-list': '10/day',
+        'review-detail': '2/day',
     }
 }
