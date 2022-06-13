@@ -13,6 +13,17 @@ from watchlist.models import Review, StreamPlatform, WatchList
 
 from watchlist.api.throttling import ReviewCreateThrottle, ReviewListThrottle
 
+class UserReview(generics.ListAPIView):
+    # queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    # permission_classes = [IsAuthenticated]
+    # throttle_classes = [ReviewListThrottle, AnonRateThrottle]
+
+    def get_queryset(self):
+        username = self.kwargs.get('username')
+        return Review.objects.filter(review_user=username)
+
+
 class ReviewCreate(generics.CreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
