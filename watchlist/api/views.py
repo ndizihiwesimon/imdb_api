@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.validators import ValidationError
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
 
 from watchlist.api.permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
