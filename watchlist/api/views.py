@@ -21,7 +21,7 @@ class UserReview(generics.ListAPIView):
 
     def get_queryset(self):
         username = self.kwargs.get('username')
-        return Review.objects.filter(review_user=username)
+        return Review.objects.filter(review_user__username=username)
 
 
 class ReviewCreate(generics.CreateAPIView):
