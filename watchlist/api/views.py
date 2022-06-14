@@ -163,18 +163,15 @@ class StreamPlatformDetailsAV(APIView):
         stream.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+# For filterting purpose
 class WatchList(generics.ListAPIView):
-    # queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+    queryset = WatchList.objects.all()
+    serializer_class = WatchListSerializer(watches, many=True)
     # permission_classes = [IsAuthenticated]
     throttle_classes = [ReviewListThrottle, AnonRateThrottle]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['review_user__username', 'active']
 
-    def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        return Review.objects.filter(watchlist=pk)
 
 class WatchListAV(APIView):
     permission_classes = [IsAdminOrReadOnly]
