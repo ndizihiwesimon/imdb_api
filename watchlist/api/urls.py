@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from watchlist.api.views import ReviewCreate, ReviewDetails, ReviewList, StreamPlatformAV, StreamPlatformDetailsAV, StreamPlatformVS, UserReview, WatchListAV, WatchDetailsAV
+from watchlist.api.views import ReviewCreate, ReviewDetails, ReviewList, StreamPlatformVS, UserReview, WatchListAV, WatchDetailsAV
 
 router = DefaultRouter()
 router.register('stream', StreamPlatformVS, basename='stream-platform')
