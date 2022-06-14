@@ -166,7 +166,7 @@ class StreamPlatformDetailsAV(APIView):
 # For filterting purpose
 class WatchList(generics.ListAPIView):
     queryset = WatchList.objects.all()
-    serializer_class = WatchListSerializer(watches, many=True)
+    serializer_class = WatchListSerializer(queryset, many=True)
     # permission_classes = [IsAuthenticated]
     throttle_classes = [ReviewListThrottle, AnonRateThrottle]
     filter_backends = [DjangoFilterBackend]
