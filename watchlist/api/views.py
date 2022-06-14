@@ -145,7 +145,7 @@ class StreamPlatformDetailsAV(APIView):
         try:
             stream = StreamPlatform.objects.get(pk=pk)
         except StreamPlatform.DoesNotExist:
-            return Response({'error': 'Stream Platform does not exist'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'error': 'That Stream Platform does not exist'}, status=status.HTTP_204_NO_CONTENT)
         serializer = StreamSerializer(stream)
         return Response(serializer.data)
 
