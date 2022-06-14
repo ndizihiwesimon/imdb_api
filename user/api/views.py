@@ -26,7 +26,7 @@ def register_view(request):
         if serializer.is_valid():
             account = serializer.save()
 
-            data['response'] = "Account created successfully"
+            data['response'] = "Account has been created successfully"
             data['username'] = account.username
             data['email'] = account.email
 
