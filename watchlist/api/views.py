@@ -169,7 +169,7 @@ class WatchList(generics.ListAPIView):
     serializer_class = WatchListSerializer(queryset, many=True)
     # permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['review_user__username', 'active']
+    filterset_fields = ['title', 'active']
 
 
 class WatchListAV(APIView):
