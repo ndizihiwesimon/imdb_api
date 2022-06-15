@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import  AnonRateThrottle, ScopedRateThrottle
+from rest_framework import filters
 
 from watchlist.api.permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
@@ -167,8 +168,8 @@ class StreamPlatformDetailsAV(APIView):
 class WatchList(generics.ListAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['title', 'platform__name']
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'platform__name']
 
 
 class WatchListAV(APIView):
