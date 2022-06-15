@@ -2,8 +2,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from watchlist.api.views import ReviewCreate, ReviewDetails, ReviewList, StreamPlatformVS, UserReview, WatchListAV, WatchDetailsAV
-from watchlist.models import WatchList
+from watchlist.api.views import WatchList, ReviewCreate, ReviewDetails, ReviewList, StreamPlatformVS, UserReview, WatchListAV, WatchDetailsAV
 
 router = DefaultRouter()
 router.register('stream', StreamPlatformVS, basename='stream-platform')
@@ -23,5 +22,4 @@ urlpatterns = [
     path('review/<int:pk>/', ReviewDetails.as_view(), name="review-details"),
 
     path('user-review/', UserReview.as_view(), name="user-review-details"),
-    
 ]
