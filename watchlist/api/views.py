@@ -164,7 +164,7 @@ class StreamPlatformDetailsAV(APIView):
         stream.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# For filtering purpose
+# For filtering and searching purpose
 class WatchList(generics.ListAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
