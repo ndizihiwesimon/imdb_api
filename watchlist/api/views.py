@@ -165,7 +165,7 @@ class StreamPlatformDetailsAV(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # For filtering and searching purpose
-class WatchList(generics.ListAPIView):
+class WatchListGV(generics.ListAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
     filter_backends = [filters.OrderingFilter]
