@@ -8,6 +8,7 @@ from rest_framework.validators import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import  AnonRateThrottle, ScopedRateThrottle
 from rest_framework import filters
+from watchlist.api.pagination import WatchListPagination
 
 from watchlist.api.permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 from watchlist.api.serializers import ReviewSerializer, StreamSerializer, WatchListSerializer
@@ -170,6 +171,7 @@ class WatchListGV(generics.ListAPIView):
     serializer_class = WatchListSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['avg_rating']
+    pagination_class = WatchListPagination
 
 
 class WatchListAV(APIView):
