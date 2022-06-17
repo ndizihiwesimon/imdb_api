@@ -15,3 +15,4 @@ class WatchListLOPagination(LimitOffsetPagination):
 
 class WatchListCPagination(CursorPagination):
     page_size = 5
+    ordering = ['created']
