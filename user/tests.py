@@ -21,7 +21,7 @@ class RegisterTestCase(APITestCase):
 
 class LoginLogoutTestCase(APITestCase):
 
-    def setup(self):
+    def setUp(self):
         self.user = User.objects.create_user(username="Nomiso", password="Hello@123")
 
     def test_login(self):
