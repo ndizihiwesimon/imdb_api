@@ -1,3 +1,4 @@
+from urllib import response
 from django.urls import reverse
 from django.contrib.auth.models import User
 
@@ -15,3 +16,17 @@ class RegisterTestCase(APITestCase):
         }
         response = self.client.post(reverse('register'), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED) 
+
+
+class LoginLogoutTestCase(APITestCase):
+
+    def setup(self):
+        self.user = User.objects.create(username="Nomiso", password="Hello@123")
+
+    def test_login(self):
+        data = {
+            "username": "Nomiso",
+            "password": "Hello@123",
+        }
+        response = self.client.post(reverse('login'), data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
