@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 
 class RegisterTestCase(APITestCase):
-
+    """Defining the registration test process for a user account with a given account name and password."""
     def test_register(self):
         data = {
             "username": "testcase",
