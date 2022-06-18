@@ -1,3 +1,5 @@
+from contextvars import Token
+from urllib import response
 from django.urls import reverse
 from django.contrib.auth.models import User
 
@@ -25,7 +27,14 @@ class LoginLogoutTestCase(APITestCase):
     def test_login(self):
         data = {
             "username": "Nomiso",
-            "password": "Hello@123",
+            "password": "Hello@123"
         }
         response = self.client.post(reverse('login'), data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_logout(self):
+        self.token = Token.objects.get(user__username = "Nomiso")
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        response = self.client.post(reverse('logout'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
