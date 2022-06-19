@@ -49,3 +49,6 @@ class StreamPlatformTestCase(APITestCase):
         }
         response = self.client.put(reverse('stream-platform-update', args=(self.stream.id,), data=data))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_stream_platform_del(self):
+        response = self.client.delete(reverse('stream-platform-delete', args=(self.stream.id,)))
