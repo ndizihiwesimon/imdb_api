@@ -2,6 +2,7 @@ from cgitb import reset
 import imp
 from os import stat
 from urllib import response
+import webbrowser
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -19,11 +20,13 @@ class StreamPlatformTestCase(APITestCase):
         self.token = Token.objects.get(user__username=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token '+ self.token.key)
 
+        self.stream = models.StreamPlatform.objects.create(name="Nomiso", about="#1 Streaming Platform", website="https://www.nomiso.net/")
+
     def test_stream_platform_create(self):
         data = {
-            "name": "Netflix",
+            "name": "Nomiso",
             "about": "#1 Streaming platform",
-            "website": "https://netflix.com"
+            "website": "https://nomiso.com"
         }
         response = self.client.post(reverse('stream-platform-list'), data=data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
