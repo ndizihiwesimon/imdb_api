@@ -1,4 +1,6 @@
+from cgitb import reset
 import imp
+from urllib import response
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -15,5 +17,6 @@ class StreamPlatformTestCase(APITestCase):
         data = {
             "name": "Netflix",
             "about": "#1 Streaming platform",
-            "website": "http://example.com"
+            "website": "https://netflix.com"
         }
+        response = self.client.post(reverse('stream-platform-list'), data=data)
