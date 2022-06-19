@@ -26,4 +26,4 @@ class StreamPlatformTestCase(APITestCase):
             "website": "https://netflix.com"
         }
         response = self.client.post(reverse('stream-platform-list'), data=data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
