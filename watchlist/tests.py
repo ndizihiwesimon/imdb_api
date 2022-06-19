@@ -20,7 +20,7 @@ class StreamPlatformTestCase(APITestCase):
         self.token = Token.objects.get(user__username=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token '+ self.token.key)
 
-        self.stream = models.StreamPlatform.objects.create(name="Nomiso", about="#1 Streaming Platform", website="https://www.nomiso.net/")
+        self.stream = models.StreamPlatform.objects.create(name="Nomiso", about="#1 Streaming Platform", website="https://www.nomiso.net")
 
     def test_stream_platform_create(self):
         data = {
@@ -33,4 +33,8 @@ class StreamPlatformTestCase(APITestCase):
 
     def test_stream_platform_list(self):
         response = self.client.get(reverse('stream-platform-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_stream_platform_ind(self):
+        response = self.client.get(reverse('stream-platform-detail', args=(self.stream.id,)))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
