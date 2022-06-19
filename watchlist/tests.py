@@ -27,3 +27,7 @@ class StreamPlatformTestCase(APITestCase):
         }
         response = self.client.post(reverse('stream-platform-list'), data=data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_stream_platform_list(self):
+        response = self.client.get(reverse('stream-platform-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
