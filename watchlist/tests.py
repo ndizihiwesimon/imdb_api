@@ -47,5 +47,5 @@ class StreamPlatformTestCase(APITestCase):
             "about": "#2 Streaming platform",
             "website": "https://siga.com"
         }
-        response = self.client.put(reverse('stream-platform-update', args=(self.stream.id,)))
+        response = self.client.put(reverse('stream-platform-update', args=(self.stream.id,), data=data))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
