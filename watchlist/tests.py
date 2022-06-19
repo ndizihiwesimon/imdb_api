@@ -1,4 +1,5 @@
 from cgitb import reset
+from http import client
 import imp
 from os import stat
 from urllib import response
@@ -52,3 +53,4 @@ class StreamPlatformTestCase(APITestCase):
 
     def test_stream_platform_del(self):
         response = self.client.delete(reverse('stream-platform-delete', args=(self.stream.id,)))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
