@@ -14,6 +14,11 @@ from watchlist import models
 
 class StreamPlatformTestCase(APITestCase):
 
+    def setUp(self):
+        self.user = User.objects.create_user(username='nomiso', password='Password@123')
+        self.token = Token.objects.get(user__username=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token '+ self.token.key)
+
     def test_stream_platform_create(self):
         data = {
             "name": "Netflix",
