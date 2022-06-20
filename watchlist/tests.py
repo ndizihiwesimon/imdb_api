@@ -69,5 +69,5 @@ class WatchListTestCase(APITestCase):
             "storyline": "Example story",
             "active": True,
         }
-        response = self.client.post(reverse('movie-list'), data)
+        response = self.client.post(reverse('watch-list'), data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

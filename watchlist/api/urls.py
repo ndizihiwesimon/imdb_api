@@ -13,9 +13,9 @@ urlpatterns = [
 
     path('', include(router.urls)),
 
-    path('list/', WatchListAV.as_view(), name='Watch-list'),
-    path('<int:pk>/', WatchDetailsAV.as_view(), name='WatchList-details'),
-    path('new-list/', WatchListGV.as_view(), name='WatchList-list2'),
+    path('list/', WatchListAV.as_view(), name='watch-list'),
+    path('<int:pk>/', WatchDetailsAV.as_view(), name='watchList-details'),
+    path('new-list/', WatchListGV.as_view(), name='watchList-list2'),
     path('<int:pk>/review-create/',
          ReviewCreate.as_view(), name="review-create"),
     path('<int:pk>/reviews/', ReviewList.as_view(), name="review-list"),
