@@ -1,9 +1,3 @@
-from cgitb import reset
-from http import client
-import imp
-from os import stat
-from urllib import response
-import webbrowser
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -54,3 +48,26 @@ class StreamPlatformTestCase(APITestCase):
     # def test_stream_platform_del(self):
     #     response = self.client.delete(reverse('stream-platform-delete', args=(self.stream.id,)))
     #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class WatchListTestCase(APITestCase):
+  
+    def setUp(self):
+        self.user = User.objects.create_user(username='nomiso', password='Password@123')
+        self.token = Token.objects.get(user__username=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.stream = models.StreamPlatform.objects.create(name="Nomiso",
+                                                           about="#1 Streaming Platform", website="https://www.nomiso.net")
+
+
+    def test_watchList_create(self):
+
+        data = {
+            "platform": self.stream,
+            "title": "Test movie",
+            "storyline": "Example story",
+            "active": True,
+        }
+        response = self.client.post(reverse('movie-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
