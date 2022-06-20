@@ -1,3 +1,4 @@
+from urllib import response
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -60,6 +61,10 @@ class WatchListTestCase(APITestCase):
         self.stream = models.StreamPlatform.objects.create(name="Nomiso",
                                                            about="#1 Streaming Platform", website="https://www.nomiso.net")
 
+        self.watchList = models.WatchList.objects.create(platform=self.stream, title="Adam Project",
+                                                           storyline="Example Movie", active = True)
+
+
 
     def test_watchList_create(self):
 
@@ -71,3 +76,11 @@ class WatchListTestCase(APITestCase):
         }
         response = self.client.post(reverse('watch-list'), data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_watchList_list(self):
+        response = self.client.get(reverse('watch-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_watchList_ind(self):
+        response = self.client.get(reverse('watchList-detail', args=(self.watchList.id,)))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
