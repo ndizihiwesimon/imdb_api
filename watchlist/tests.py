@@ -131,3 +131,5 @@ class ReviewTestCase(APITestCase):
         response = self.client.post(
             reverse('review-create', args=(self.watchList.id, )), data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+# def test_review_update(self):
