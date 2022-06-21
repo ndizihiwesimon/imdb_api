@@ -85,3 +85,26 @@ class WatchListTestCase(APITestCase):
         response = self.client.get(reverse('watchList-detail', args=(self.watchList.id,)))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(models.WatchList.objects.get().title, "Adam Project")
+
+class ReviewTestCase(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(username='nomiso', password='Password@123')
+        self.token = Token.objects.get(user__username=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.stream = models.StreamPlatform.objects.create(name="Nomiso",
+                                                           about="#1 Streaming Platform", website="https://www.nomiso.net")
+
+        self.watchList = models.WatchList.objects.create(platform=self.stream, title="Adam Project",
+                                                           storyline="Example Movie", active = True)
+
+    def test_review_create(self):
+        data = {
+            "review_user": self.user,
+            "rating": 5,
+            "description": "Amazing",
+            "watchlist": self.watchList,
+            "active": True
+        }
+        
