@@ -1,3 +1,4 @@
+from turtle import st
 from urllib import response
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -86,7 +87,7 @@ class WatchListTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(models.WatchList.objects.get().title, "Adam Project")
 
-class ReviewTestCase(TestCase):
+class ReviewTestCase(APITestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(username='nomiso', password='Password@123')
@@ -107,4 +108,5 @@ class ReviewTestCase(TestCase):
             "watchlist": self.watchList,
             "active": True
         }
-        
+        response = self.client.post(reverse('review-create', args=(self.watchList.id, )), data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
