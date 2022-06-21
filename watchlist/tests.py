@@ -119,4 +119,14 @@ class ReviewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
-    # def test_review_create(self):
+    def test_review_create_unauth(self):
+        data = {
+            "review_user": self.user,
+            "rating": 5,
+            "description": "Great movie",
+            "watchlist": self.watchList,
+            "active": True
+        }
+        response = self.client.post(
+            reverse('review-create', args=(self.watchList.id, )), data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
