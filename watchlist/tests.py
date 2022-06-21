@@ -113,7 +113,7 @@ class ReviewTestCase(APITestCase):
 
         response = self.client.post(
             reverse('review-create', args=(self.watchList.id, )), data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
     # def test_review_create(self):
