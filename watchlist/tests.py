@@ -85,6 +85,7 @@ class WatchListTestCase(APITestCase):
     def test_watchList_ind(self):
         response = self.client.get(reverse('watchList-detail', args=(self.watchList.id,)))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(models.WatchList.objects.count(), 1)
         self.assertEqual(models.WatchList.objects.get().title, "Adam Project")
 
 class ReviewTestCase(APITestCase):
