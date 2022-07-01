@@ -152,3 +152,7 @@ def test_review_update(self):
 def test_review_list(self):
     response = self.client.get(reverse('review-list', args=(self.watchList.id, )))
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+def test_review_ind(self):
+    response = self.client.get(reverse('review-detail', args=(self.review.id,)))
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
