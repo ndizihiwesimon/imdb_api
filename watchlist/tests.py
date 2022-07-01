@@ -1,3 +1,4 @@
+from ast import For
 from turtle import st
 from urllib import response
 from django.contrib.auth.models import User
@@ -38,18 +39,20 @@ class StreamPlatformTestCase(APITestCase):
         response = self.client.get(reverse('stream-platform-detail', args=(self.stream.id,)))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # def test_stream_platform_update(self):
-    #     data = {
-    #         "name": "Siga Inkweto",
-    #         "about": "#2 Streaming platform",
-    #         "website": "https://siga.com"
-    #     }
-    #     response = self.client.put(reverse('stream-platform-update', args=(self.stream.id,), data=data))
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    # FORBIDDEN because they DO NOT have admin permissions
+    def test_stream_platform_update(self):
+        data = {
+            "name": "Siga Inkweto",
+            "about": "#2 Streaming platform",
+            "website": "https://siga.com"
+        }
+        response = self.client.put(reverse('stream-platform-detail', args=(self.stream.id,)), data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    # def test_stream_platform_del(self):
-    #     response = self.client.delete(reverse('stream-platform-delete', args=(self.stream.id,)))
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    # FORBIDDEN because they DO NOT have admin permissions
+    def test_stream_platform_del(self):
+        response = self.client.delete(reverse('stream-platform-detail', args=(self.stream.id,)))
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
 class WatchListTestCase(APITestCase):
@@ -97,9 +100,12 @@ class ReviewTestCase(APITestCase):
 
         self.stream = models.StreamPlatform.objects.create(name="Nomiso",
                                                            about="#1 Streaming Platform", website="https://www.nomiso.net")
-
         self.watchList = models.WatchList.objects.create(platform=self.stream, title="Adam Project",
                                                            storyline="Example Movie", active = True)
+        self.watchList2 = models.WatchList.objects.create(platform=self.stream, title="Adam Project",
+                                                         storyline="Example Movie", active=True)
+        self.review = models.Review.objects.create(review_user=self.user, rating = 5, description = "Great movie",
+                                                         watchlist=self.watchList2, active=True)
 
     def test_review_create(self):
         data = {
@@ -111,8 +117,8 @@ class ReviewTestCase(APITestCase):
         }
         response = self.client.post(reverse('review-create', args=(self.watchList.id, )), data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(models.Review.objects.count(), 1)
-        self.assertEqual(models.Review.objects.get().rating, 5)
+        self.assertEqual(models.Review.objects.count(), 2)
+        # self.assertEqual(models.Review.objects.get().rating, 5)
 
         response = self.client.post(
             reverse('review-create', args=(self.watchList.id, )), data)
@@ -132,4 +138,13 @@ class ReviewTestCase(APITestCase):
             reverse('review-create', args=(self.watchList.id, )), data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-# def test_review_update(self):
+def test_review_update(self):
+    data = {
+        "review_user": self.user,
+        "rating": 4,
+        "description": "Great movie - Updated",
+        "watchlist": self.watchList,
+        "active": False
+    }
+    response = self.client.put(reverse('review-detail', args=(self.review.id, )), data)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
