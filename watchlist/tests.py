@@ -1,4 +1,5 @@
 from ast import For
+from os import stat
 from turtle import st
 from urllib import response
 from django.contrib.auth.models import User
@@ -162,3 +163,7 @@ class ReviewTestCase(APITestCase):
     def test_review_delete(self):
         response = self.client.delete(reverse('review-details', args=(self.review.id,)))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_review_user(self):
+        response = self.client.get('/watch/user-review/?username='+ self.user.username)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
